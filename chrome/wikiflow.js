@@ -13,7 +13,7 @@ function showPageAction(tabId, changeInfo, tab) {
 chrome.tabs.onUpdated.addListener(showPageAction);
 
 
-function sendEdge(details) {
+function sendArc(details) {
   // Get requested page url
   var next_url = details.url;
 
@@ -21,14 +21,14 @@ function sendEdge(details) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var current_url = tabs[0].url;
 
-    edgeData = JSON.stringify({current: current_url, next: next_url})
-    alert(edgeData)
+    arcData = JSON.stringify({current: current_url, next: next_url})
+    alert(arcData)
 
     // Send to server
     // var client = new XMLHttpRequest();
-    // client.open("POST", "https://www.mywiki.space/edge");
+    // client.open("POST", "https://www.mywiki.space/arc");
     // client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    // client.send(edgeData);
+    // client.send(arcData);
   });
 };
 
@@ -39,4 +39,4 @@ var filter = {
 var opt_extraInfoSpec = [];
 
 chrome.webRequest.onSendHeaders.addListener(
-  sendEdge, filter, opt_extraInfoSpec);
+  sendArc, filter, opt_extraInfoSpec);
