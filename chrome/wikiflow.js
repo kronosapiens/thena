@@ -5,7 +5,6 @@
 // https://developer.chrome.com/extensions/xhr
 // https://developer.chrome.com/extensions/tabs
 
-
 // Show page action icon in omnibar.
 function showPageAction(tabId, changeInfo, tab) {
     chrome.pageAction.show(tabId);
@@ -15,22 +14,22 @@ chrome.tabs.onUpdated.addListener(showPageAction);
 
 
 function sendEdge(details) {
-  // Get current page url
-  var current_url = chrome.tabs.getCurrent(function(tab) {
-    return tab.url;
-  });
-
   // Get requested page url
   var next_url = details.url;
 
-  // Send to server
-  edgeData = JSON.stringify({current: current_url, next: next_url})
+  // Get current page url
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    var current_url = tabs[0].url;
 
-  // var client = new XMLHttpRequest();
-  // client.open("POST", "https://www.mywiki.space/edge");
-  // client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-  // client.send(edgeData);
-  alert(edgeData)
+    edgeData = JSON.stringify({current: current_url, next: next_url})
+    alert(edgeData)
+
+    // Send to server
+    // var client = new XMLHttpRequest();
+    // client.open("POST", "https://www.mywiki.space/edge");
+    // client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    // client.send(edgeData);
+  });
 };
 
 var filter = {
