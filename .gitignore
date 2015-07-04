@@ -60,3 +60,4 @@ target/
 data/
 
 .DS_Store
+*.pem
