@@ -58,3 +58,5 @@ target/
 
 # Data files
 data/
+
+.DS_Store

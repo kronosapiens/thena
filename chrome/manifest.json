@@ -1,0 +1,30 @@
+// Copyright (c) 2015 Daniel Kronovet
+// kronovet@gmail.com
+
+{
+  "manifest_version": 2,
+
+  "name": "Wikiflow",
+  "description": "This extension will record the the wikipedia page you are currently viewing, as well as the page you came from.",
+  "version": "1.0",
+
+  "page_action": {
+    "default_icon": "favicon.png"
+    // "default_popup": "popup.html"
+  },
+
+  "background": {
+     "scripts": ["wikiflow.js"],
+     "persistent": true
+   },
+
+  "permissions": [
+    "webRequest",
+    "tabs",
+    "https://*.wikipedia.org/wiki/*",
+    "https://www.mywiki.space/*"
+  ]
+}
+
+
+// Design: intercept http request for new page, record current page and requested page
