@@ -15,20 +15,21 @@ chrome.tabs.onUpdated.addListener(showPageAction);
 
 function sendArc(details) {
   // Get requested page url
-  var next_url = details.url;
+  var head = details.url;
 
   // Get current page url
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-    var current_url = tabs[0].url;
+    var tail = tabs[0].url;
 
-    arcData = JSON.stringify({current: current_url, next: next_url})
-    alert(arcData)
+    arcData = JSON.stringify({tail: tail, head: head})
 
     // Send to server
-    // var client = new XMLHttpRequest();
-    // client.open("POST", "https://www.mywiki.space/arc");
-    // client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    // client.send(arcData);
+    var client = new XMLHttpRequest();
+    client.open("POST", "http://127.0.0.1:5000/arc");
+    client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    alert('about to send')
+    client.send(arcData);
+    alert('sent')
   });
 };
 
