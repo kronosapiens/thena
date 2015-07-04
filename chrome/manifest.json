@@ -10,7 +10,6 @@
 
   "page_action": {
     "default_icon": "favicon.png"
-    // "default_popup": "popup.html"
   },
 
   "background": {
@@ -25,6 +24,3 @@
     "https://www.mywiki.space/*"
   ]
 }
-
-
-// Design: intercept http request for new page, record current page and requested page
