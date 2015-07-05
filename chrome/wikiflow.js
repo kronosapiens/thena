@@ -5,6 +5,17 @@
 // https://developer.chrome.com/extensions/xhr
 // https://developer.chrome.com/extensions/tabs
 
+chrome.identity.getProfileUserInfo(function(userInfo) {
+  alert(userInfo.email)
+  alert(userInfo.id)
+});
+
+function getEmail() {
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+  // "https://www.googleapis.com/userinfo/email?alt=json" URL to get email address
+  });
+};
+
 // Show page action icon in omnibar.
 function showPageAction(tabId, changeInfo, tab) {
     chrome.pageAction.show(tabId);

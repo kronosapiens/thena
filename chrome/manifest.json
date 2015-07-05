@@ -1,12 +1,15 @@
 // Copyright (c) 2015 Daniel Kronovet
 // kronovet@gmail.com
 
+// ID: oojfkcgechlbjcbbjplhcomclmobkiam
+
 {
   "manifest_version": 2,
 
   "name": "Wikiflow",
   "description": "This extension will record the the wikipedia page you are currently viewing, as well as the page you came from.",
-  "version": "1.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6mQAn9jYVaP6qLzkwndz101g3MY98W8wTyr8+YwppMtWyKfZAd/ld3j/1G3og5rSyMzOH8TkfrSxrr8K+NjX1yK7EvRXx3RZ4LLBrpjZvsIOW7pUn1IUEoBJ4S7Lbwl0j7Y+uWOiCQGBw6xudG65LhpxlqV3zaW2DGDfn4yMhUGloDIM0z2bxwLnw7fOGib2lvp6wJn51TJV4an75af64qtilusqzeuzS5l5v2jG9W87saHUvz/5bNj1QPRPNTJJfXxj+mlBC0HO5CJpPIcCqGq6LJQplyNXZFy/9n79oA1QkaAjEUOwAmE6DEuA0FZL1KFSjZ/j5K8Y12sXwu1sQIDAQAB",
+  "version": "0.1",
 
   "page_action": {
     "default_icon": "favicon.png"
@@ -20,7 +23,24 @@
   "permissions": [
     "webRequest",
     "tabs",
+    "identity",
+    "identity.email",
     "https://*.wikipedia.org/wiki/*",
     "https://www.mywiki.space/*"
-  ]
+  ],
+
+  "oauth2": {
+    "client_id": "92540267626-c09iuau15uva63ibd0lpgg74jurvm8bf.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  }
 }
+
+// {"installed":
+//   {"client_id":"92540267626-c09iuau15uva63ibd0lpgg74jurvm8bf.apps.googleusercontent.com",
+//   "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+//   "token_uri":"https://accounts.google.com/o/oauth2/token",
+//   "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+//   "client_email":"",
+//   "client_x509_cert_url":"",
+//   "client_secret":"5DDvYsHwoAa_-qrbmujovetb"}
+// }

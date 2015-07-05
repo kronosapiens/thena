@@ -11,15 +11,13 @@ class BaseModel(db.Model):
 
 class User(BaseModel):
     __tablename__ = 'users'
-    username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
 
-    def __init__(self, username, email):
-        self.username = username
+    def __init__(self, email):
         self.email = email
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.email)
 
 
 class Arc(BaseModel):
