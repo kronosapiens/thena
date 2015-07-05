@@ -19,7 +19,6 @@ def index():
 
 @main.route('/arc', methods=['GET', 'POST'])
 def log_arc():
-    import ipdb; ipdb.set_trace()
     if request.data:
         data = json.loads(request.data)
         arc = Arc(user_id=1, tail=data['tail'], head=data['head'])

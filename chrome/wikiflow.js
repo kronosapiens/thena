@@ -26,10 +26,7 @@ function sendArc(details) {
     // Send to server
     var client = new XMLHttpRequest();
     client.open("POST", "http://127.0.0.1:5000/arc");
-    client.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    alert('about to send')
     client.send(arcData);
-    alert('sent')
   });
 };
 
