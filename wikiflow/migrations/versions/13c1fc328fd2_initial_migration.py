@@ -1,13 +1,13 @@
 """initial migration
 
-Revision ID: 5622178ab8bb
+Revision ID: 13c1fc328fd2
 Revises: None
-Create Date: 2015-07-04 13:27:51.955110
+Create Date: 2015-07-05 22:56:19.306500
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '5622178ab8bb'
+revision = '13c1fc328fd2'
 down_revision = None
 
 from alembic import op
@@ -20,11 +20,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('username', sa.String(length=80), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('username')
+    sa.UniqueConstraint('email')
     )
     op.create_table('arcs',
     sa.Column('id', sa.Integer(), nullable=False),

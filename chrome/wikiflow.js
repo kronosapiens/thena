@@ -4,17 +4,8 @@
 // https://developer.chrome.com/extensions/webRequest
 // https://developer.chrome.com/extensions/xhr
 // https://developer.chrome.com/extensions/tabs
+// https://developer.chrome.com/extensions/identity
 
-chrome.identity.getProfileUserInfo(function(userInfo) {
-  alert(userInfo.email)
-  alert(userInfo.id)
-});
-
-function getEmail() {
-  chrome.identity.getAuthToken({interactive: true}, function(token) {
-  // "https://www.googleapis.com/userinfo/email?alt=json" URL to get email address
-  });
-};
 
 // Show page action icon in omnibar.
 function showPageAction(tabId, changeInfo, tab) {
@@ -32,12 +23,16 @@ function sendArc(details) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var tail = tabs[0].url;
 
-    arcData = JSON.stringify({tail: tail, head: head})
+    chrome.identity.getProfileUserInfo(function(userInfo) {
+      var email = userInfo.email
 
-    // Send to server
-    var client = new XMLHttpRequest();
-    client.open("POST", "http://127.0.0.1:5000/arc");
-    client.send(arcData);
+      arcData = JSON.stringify({tail: tail, head: head, email: email})
+
+      // Send to server
+      var client = new XMLHttpRequest();
+      client.open("POST", "http://127.0.0.1:5000/arc");
+      client.send(arcData);
+    });
   });
 };
 

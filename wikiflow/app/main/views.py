@@ -21,7 +21,14 @@ def index():
 def log_arc():
     if request.data:
         data = json.loads(request.data)
-        arc = Arc(user_id=1, tail=data['tail'], head=data['head'])
+        user = User.query.filter_by(email=data['email']).first()
+
+        if user is None:
+            user = User(email=data['email'])
+            db.session.add(user)
+            db.session.commit()
+
+        arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
         db.session.add(arc)
         db.session.commit()
         return 'Arc saved!'

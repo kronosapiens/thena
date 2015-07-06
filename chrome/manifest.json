@@ -27,12 +27,8 @@
     "identity.email",
     "https://*.wikipedia.org/wiki/*",
     "https://www.mywiki.space/*"
-  ],
+  ]
 
-  "oauth2": {
-    "client_id": "92540267626-c09iuau15uva63ibd0lpgg74jurvm8bf.apps.googleusercontent.com",
-    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
-  }
 }
 
 // {"installed":
