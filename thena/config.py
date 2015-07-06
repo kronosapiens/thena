@@ -28,20 +28,20 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        "postgresql://kronosapiens:@localhost/wikiflow"
-        # "postgresql://kronosapiens:<password>@localhost/wikiflow"
+        "postgresql://kronosapiens:@localhost/thena"
+        # "postgresql://kronosapiens:<password>@localhost/thena"
 
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        "postgresql://kronosapiens:@localhost/wikiflow_test"
+        "postgresql://kronosapiens:@localhost/thena_test"
     WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        "postgresql://kronosapiens:@localhost/wikiflow"
+        "postgresql://kronosapiens:@localhost/thena"
 
     @classmethod
     def init_app(cls, app):

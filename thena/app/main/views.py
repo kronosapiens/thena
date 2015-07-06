@@ -14,7 +14,7 @@ from ..models import User, Arc
 
 @main.route('/', methods=['GET'])
 def index():
-    return 'Hello wikiflow!'
+    return 'Hello thena!'
 
 
 @main.route('/arc', methods=['GET', 'POST'])
