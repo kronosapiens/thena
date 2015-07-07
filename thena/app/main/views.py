@@ -21,18 +21,27 @@ def index():
 def log_arc():
     if request.data:
         data = json.loads(request.data)
-        user = User.query.filter_by(email=data['email']).first()
-
-        if user is None:
-            user = User(email=data['email'])
-            db.session.add(user)
-            db.session.commit()
-
+        user = get_or_create_user(data['email'])
         arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
         db.session.add(arc)
         db.session.commit()
         return 'Arc saved!'
     return 'POST your arcs here!'
+
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.data:
+        data = json.loads(request.data)
+        user = get_or_create_user(data['email'])
+    return 'Logging in like a champ!'
+
+def get_or_create_user(email):
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        user = User(email=email)
+        db.session.add(user)
+        db.session.commit()
+    return user
 
 
 # @main.after_app_request

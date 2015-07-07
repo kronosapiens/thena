@@ -26,7 +26,8 @@
     "identity",
     "identity.email",
     "https://*.wikipedia.org/wiki/*",
-    "https://www.mywiki.space/*"
+    "https://127.0.0.1:5000/*"
+    // "https://www.mywiki.space/*"
   ]
 
 }
