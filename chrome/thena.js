@@ -26,21 +26,43 @@ function sendArc(details) {
     chrome.identity.getProfileUserInfo(function(userInfo) {
       var email = userInfo.email
 
-      arcData = JSON.stringify({tail: tail, head: head, email: email})
+      arcData = JSON.stringify({tail: tail, head: head, email: email});
 
       // Send to server
       var client = new XMLHttpRequest();
       client.open("POST", "http://127.0.0.1:5000/arc");
       client.send(arcData);
+      alert(arcData);
     });
   });
 };
 
-var filter = {
-  urls: ["https://*.wikipedia.org/wiki/*"]
+var wikiFilter = {
+  urls: ["https://*.wikipedia.org/wiki/*"] // Corresponds to head, not tail
 };
 
-var opt_extraInfoSpec = [];
-
 chrome.webRequest.onSendHeaders.addListener(
-  sendArc, filter, opt_extraInfoSpec);
+  sendArc, wikiFilter, []);
+
+function loginUser(details) {
+  chrome.identity.getProfileUserInfo(function(userInfo) {
+    var email = userInfo.email
+
+    loginData = JSON.stringify({email: email});
+    alert(loginData);
+
+    // Send to server
+    var client = new XMLHttpRequest();
+    client.open("POST", "http://127.0.0.1:5000/login");
+    client.send(loginData);
+  });
+};
+
+var loginFilter = {
+  urls: ["https://*.wikipedia.org/wiki/Main_Page"]
+  // urls: ["<all_urls>"]
+  // urls: ["http://127.0.0.1:5000/login"]
+};
+
+chrome.webRequest.onBeforeSendHeaders.addListener(
+  loginUser, loginFilter, []);

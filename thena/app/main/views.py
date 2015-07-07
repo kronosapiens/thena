@@ -12,9 +12,11 @@ from .. import db
 from ..models import User, Arc
 # from ..decorators import admin_required, permission_required
 
+url = 'http://127.0.0.1:5000'
+
 @main.route('/', methods=['GET'])
 def index():
-    return 'Hello thena!'
+    return "<a href={}>login</a>".format(url + url_for('.login'))
 
 
 @main.route('/arc', methods=['GET', 'POST'])
@@ -33,7 +35,7 @@ def login():
     if request.data:
         data = json.loads(request.data)
         user = get_or_create_user(data['email'])
-    return 'Logging in like a champ!'
+    return 'Logging in like a champ'
 
 def get_or_create_user(email):
     user = User.query.filter_by(email=email).first()
