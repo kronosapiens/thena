@@ -1,4 +1,6 @@
-from . import db
+from flask.ext.login import UserMixin
+
+from . import db, login_manager
 
 class BaseModel(db.Model):
     __abstract__ = True
@@ -9,7 +11,7 @@ class BaseModel(db.Model):
         onupdate=db.func.now())
 
 
-class User(BaseModel):
+class User(UserMixin, BaseModel):
     __tablename__ = 'users'
     email = db.Column(db.String(120), unique=True)
 
@@ -18,6 +20,10 @@ class User(BaseModel):
 
     def __repr__(self):
         return '<User {}>'.format(self.email)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class Arc(BaseModel):

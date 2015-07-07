@@ -14,7 +14,16 @@ function showPageAction(tabId, changeInfo, tab) {
 // Call the above function when the url of a tab changes.
 chrome.tabs.onUpdated.addListener(showPageAction);
 
+// Authenticate User
+function getAuth() {
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+    alert(token)
+  // "https://www.googleapis.com/userinfo/email?alt=json" URL to get email address
+  });
+};
 
+
+// Save Arcs
 function sendArc(details) {
   // Get requested page url
   var head = details.url;
@@ -23,6 +32,8 @@ function sendArc(details) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var tail = tabs[0].url;
 
+    // chrome.identity.getAuthToken(details, function(token) {
+    //   var email = token
     chrome.identity.getProfileUserInfo(function(userInfo) {
       var email = userInfo.email
 
@@ -43,26 +54,3 @@ var wikiFilter = {
 
 chrome.webRequest.onSendHeaders.addListener(
   sendArc, wikiFilter, []);
-
-function loginUser(details) {
-  chrome.identity.getProfileUserInfo(function(userInfo) {
-    var email = userInfo.email
-
-    loginData = JSON.stringify({email: email});
-    alert(loginData);
-
-    // Send to server
-    var client = new XMLHttpRequest();
-    client.open("POST", "http://127.0.0.1:5000/login");
-    client.send(loginData);
-  });
-};
-
-var loginFilter = {
-  urls: ["https://*.wikipedia.org/wiki/Main_Page"]
-  // urls: ["<all_urls>"]
-  // urls: ["http://127.0.0.1:5000/login"]
-};
-
-chrome.webRequest.onBeforeSendHeaders.addListener(
-  loginUser, loginFilter, []);

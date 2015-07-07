@@ -27,7 +27,12 @@
     "identity.email",
     "https://*.wikipedia.org/wiki/*",
     "https://127.0.0.1:5000/*"
-    // "https://www.mywiki.space/*"
-  ]
+    // "https://www.thena.io/*"
+  ],
+
+  "oauth2": {
+    "client_id": "584973115782-v1ini048en6g4p8pfgrnbtasfkcf570a.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  }
 
 }
