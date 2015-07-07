@@ -22,6 +22,7 @@
 
   "permissions": [
     "webRequest",
+    "webRequestBlocking",
     "tabs",
     "identity",
     "identity.email",

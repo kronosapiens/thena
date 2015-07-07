@@ -10,10 +10,11 @@
 // Show page action icon in omnibar.
 function showPageAction(tabId, changeInfo, tab) {
     chrome.pageAction.show(tabId);
-    // getAuth();
 };
+
 // Call the above function when the url of a tab changes.
 chrome.tabs.onUpdated.addListener(showPageAction);
+
 
 // Authenticate User
 function getAuth() {
@@ -43,6 +44,14 @@ function getAuth() {
   });
 };
 
+var loginFilter = {
+  urls: ["https://*.wikipedia.org/wiki/Main_Page"]
+};
+
+chrome.webRequest.onBeforeSendHeaders.addListener(
+  getAuth, loginFilter, ['blocking']);
+
+
 // Save Arcs
 function sendArc(details) {
   // Get requested page url
@@ -52,8 +61,6 @@ function sendArc(details) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var tail = tabs[0].url;
 
-    // chrome.identity.getAuthToken(details, function(token) {
-    //   var email = token
     chrome.identity.getProfileUserInfo(function(userInfo) {
       var email = userInfo.email
 
