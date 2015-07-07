@@ -17,39 +17,48 @@ chrome.tabs.onUpdated.addListener(showPageAction);
 
 
 // Authenticate User
-function getAuth() {
-  chrome.identity.getAuthToken({interactive: true}, function(token) {
+function getAuth(callback, interactive) {
+  interactive = interactive || false;
+  chrome.identity.getAuthToken({interactive: interactive}, function(token) {
       email_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
 
       var xhr = new XMLHttpRequest();
       xhr.open("GET", email_url + token);
+
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           var resp = JSON.parse(xhr.responseText);
-          var authData = JSON.stringify({
+          var authData = {
             token: token,
             email: resp.data.email,
             isVerified: resp.data.isVerified
-          })
-
-          // Send authentication to server
-          var xhr2 = new XMLHttpRequest();
-          xhr2.open("POST", "http://127.0.0.1:5000/login");
-          xhr2.send(authData);
-          alert(authData)
-
+          }
+          callback(authData);
         };
       };
+
       xhr.send();
   });
 };
+
+function sendAuth(authData) {
+    // Send authentication to server
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open("POST", "http://127.0.0.1:5000/login");
+    xhr2.send(JSON.stringify(authData));
+    alert(JSON.stringify(authData));
+};
+
+function authFlow() {
+  getAuth(sendAuth, true);
+}
 
 var loginFilter = {
   urls: ["https://*.wikipedia.org/wiki/Main_Page"]
 };
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
-  getAuth, loginFilter, ['blocking']);
+  authFlow, loginFilter, ['blocking']);
 
 
 // Save Arcs
@@ -61,10 +70,12 @@ function sendArc(details) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var tail = tabs[0].url;
 
-    chrome.identity.getProfileUserInfo(function(userInfo) {
-      var email = userInfo.email
-
-      var arcData = JSON.stringify({tail: tail, head: head, email: email});
+    getAuth(function(authData) {
+      var arcData = JSON.stringify({
+        tail: tail,
+        head: head,
+        email: authData.email
+      });
 
       // Send to server
       var xhr = new XMLHttpRequest();
