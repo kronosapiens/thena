@@ -21,25 +21,46 @@ function getAuth(callback, interactive) {
   interactive = interactive || false;
   chrome.identity.getAuthToken({interactive: interactive}, function(token) {
       email_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
-
       var xhr = new XMLHttpRequest();
       xhr.open("GET", email_url + token);
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           var resp = JSON.parse(xhr.responseText);
-          var authData = {
-            token: token,
-            email: resp.data.email,
-            isVerified: resp.data.isVerified
-          }
-          callback(authData);
+
+          if ('data' in resp){
+            var authData = {
+              token: token,
+              email: resp.data.email,
+              isVerified: resp.data.isVerified
+            };
+            callback(authData);
+          } else if ('error' in resp){
+            // alert('auth failed');
+          };
+
         };
       };
 
       xhr.send();
   });
 };
+
+// {
+//  "error": {
+//   "errors": [
+//    {
+//     "domain": "global",
+//     "reason": "required",
+//     "message": "Login Required",
+//     "locationType": "header",
+//     "location": "Authorization"
+//    }
+//   ],
+//   "code": 401,
+//   "message": "Login Required"
+//  }
+// }
 
 function sendAuth(authData) {
     // Send authentication to server
