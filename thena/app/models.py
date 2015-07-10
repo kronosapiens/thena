@@ -14,12 +14,15 @@ class BaseModel(db.Model):
 class User(UserMixin, BaseModel):
     __tablename__ = 'users'
     email = db.Column(db.String(120), unique=True)
+    auth_token = db.Column(db.String(255))
+    first_name = db.Column(db.String(255))
+    last_name = db.Column(db.String(255))
 
     def __init__(self, email):
         self.email = email
 
     def __repr__(self):
-        return '<User {}>'.format(self.email)
+        return '<User [{}] {}>'.format(self.id, self.email)
 
 @login_manager.user_loader
 def load_user(user_id):

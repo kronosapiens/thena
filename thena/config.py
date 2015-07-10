@@ -26,6 +26,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+    SERVER_NAME = 'localhost:5000'
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         "postgresql://kronosapiens:@localhost/thena"
@@ -33,6 +34,7 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    SERVER_NAME = 'localhost:5000'
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
         "postgresql://kronosapiens:@localhost/thena_test"

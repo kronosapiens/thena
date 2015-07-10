@@ -20,9 +20,9 @@ chrome.tabs.onUpdated.addListener(showPageAction);
 function getAuth(callback, interactive) {
   interactive = interactive || false;
   chrome.identity.getAuthToken({interactive: interactive}, function(token) {
-      email_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
+      auth_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", email_url + token);
+      xhr.open("GET", auth_url + token);
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
@@ -95,7 +95,8 @@ function sendArc(details) {
       var arcData = JSON.stringify({
         tail: tail,
         head: head,
-        email: authData.email
+        email: authData.email,
+        token: authData.token
       });
 
       // Send to server

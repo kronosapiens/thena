@@ -1,8 +1,8 @@
-import json
+import requests
 
 from flask import render_template, redirect, url_for, abort, flash, request,\
     current_app, make_response
-# from flask.ext.login import login_required, current_user
+from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.sqlalchemy import get_debug_queries
 
 from . import main
@@ -12,38 +12,12 @@ from .. import db
 from ..models import User, Arc
 # from ..decorators import admin_required, permission_required
 
+GOOGLE_AUTH_URL = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
 url = 'http://127.0.0.1:5000'
 
 @main.route('/', methods=['GET'])
 def index():
-    return "<a href={}>login</a>".format(url + url_for('.login'))
-
-
-@main.route('/arc', methods=['GET', 'POST'])
-def log_arc():
-    if request.data:
-        data = json.loads(request.data)
-        user = get_or_create_user(data['email'])
-        arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
-        db.session.add(arc)
-        db.session.commit()
-        return 'Arc saved!'
-    return 'POST your arcs here!'
-
-@main.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.data:
-        data = json.loads(request.data)
-        user = get_or_create_user(data['email'])
-    return 'Logging in like a champ'
-
-def get_or_create_user(email):
-    user = User.query.filter_by(email=email).first()
-    if user is None:
-        user = User(email=email)
-        db.session.add(user)
-        db.session.commit()
-    return user
+    return "This is Thena, nice to meet you."
 
 
 # @main.after_app_request
