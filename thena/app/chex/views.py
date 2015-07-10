@@ -17,11 +17,15 @@ url = 'http://127.0.0.1:5000'
 def log_arc():
     if request.data:
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
-        user = get_or_create_user(data['email'])
-        arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
-        db.session.add(arc)
-        db.session.commit()
-        return 'Arc saved!'
+        email = get_email_from_auth(data['token'])
+        if email:
+            user = get_or_create_user(email)
+            arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
+            db.session.add(arc)
+            db.session.commit()
+            return 'Arc saved!'
+        else:
+            return 'Authentication token not valid!'
     return 'POST your arcs here!'
 
 @chex.route('/login', methods=['GET', 'POST'])

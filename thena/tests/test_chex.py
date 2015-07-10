@@ -9,7 +9,7 @@ from app.models import User, Arc
 from . import utils
 
 
-class FlaskClientTestCase(unittest.TestCase):
+class TestChex(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
         self.app_context = self.app.app_context()
@@ -39,7 +39,43 @@ class FlaskClientTestCase(unittest.TestCase):
         # register a new account
         with HTTMock(utils.google_auth):
             response = self.client.post(url_for('chex.login'),
-                data=json.dumps({'token': ''}),
-                content_type='application/json')
+                content_type='application/json',
+                data=json.dumps({'token': ''}))
 
         assert User.query.count() == 0
+
+    def test_log_arc_with_valid_token(self):
+        db.session.add(User(email='test@thena.io'))
+        db.session.commit()
+
+        assert Arc.query.count() == 0
+
+        with HTTMock(utils.google_auth):
+            response = self.client.post(url_for('chex.log_arc'),
+                content_type='application/json',
+                data=json.dumps({
+                        'token': 'cat',
+                        'tail': 'www.someurl.com/1',
+                        'head': 'www.someurl.com/2',
+                        })
+                )
+
+        assert Arc.query.count() == 1
+
+    def test_log_arc_without_valid_token(self):
+        db.session.add(User(email='test@thena.io'))
+        db.session.commit()
+
+        assert Arc.query.count() == 0
+
+        with HTTMock(utils.google_auth):
+            response = self.client.post(url_for('chex.log_arc'),
+                content_type='application/json',
+                data=json.dumps({
+                        'token': '',
+                        'tail': 'www.someurl.com/1',
+                        'head': 'www.someurl.com/2',
+                        })
+                )
+
+        assert Arc.query.count() == 0
