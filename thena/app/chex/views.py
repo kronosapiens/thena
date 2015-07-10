@@ -19,13 +19,13 @@ def log_arc():
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
-            user = get_or_create_user(email)
-            arc = Arc(user_id=user.id, tail=data['tail'], head=data['head'])
+            user = User.get_or_create(email)
+            arc = Arc(user.id, data['tail'], data['head'])
             db.session.add(arc)
             db.session.commit()
             return 'Arc saved!'
         else:
-            return 'Authentication token not valid!'
+            return 'Authentication token invalid!'
     return 'POST your arcs here!'
 
 @chex.route('/login', methods=['GET', 'POST'])
@@ -34,7 +34,7 @@ def login():
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
-            user = get_or_create_user(email)
+            user = User.get_or_create(email)
             login_user(user)
             return 'Logged in', str(user)
         else:
@@ -45,6 +45,9 @@ def login():
 def logout():
     logout_user()
 
+def get_email_from_auth(token):
+    resp = requests.get(GOOGLE_AUTH_URL + token)
+    return resp.json().get('data', {}).get('email')
 
 # Browser Headers
 # EnvironHeaders([
@@ -70,15 +73,3 @@ def logout():
 #     ('Accept-Language', u'en-US,en;q=0.8'),
 #     ('Content-Type', u'text/plain;charset=UTF-8'),
 #     ('Accept-Encoding', u'gzip, deflate')])
-
-def get_email_from_auth(token):
-    resp = requests.get(GOOGLE_AUTH_URL + token)
-    return resp.json().get('data', {}).get('email')
-
-def get_or_create_user(email):
-    user = User.query.filter_by(email=email).first()
-    if user is None:
-        user = User(email=email)
-        db.session.add(user)
-        db.session.commit()
-    return user

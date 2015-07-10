@@ -85,17 +85,17 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 // Save Arcs
 function sendArc(details) {
   // Get requested page url
-  var head = details.url;
+  var head_url = details.url;
 
   // Get current page url
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-    var tail = tabs[0].url;
+    var tail_url = tabs[0].url;
 
     getAuth(function(authData) {
       var arcData = JSON.stringify({
-        tail: tail,
-        head: head,
-        email: authData.email,
+        tail_url: tail_url,
+        head_url: head_url,
+        // email: authData.email,
         token: authData.token
       });
 

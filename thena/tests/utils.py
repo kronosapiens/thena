@@ -6,7 +6,7 @@ def google_auth(url, request):
     if access_token:
         content = {
             'data': {
-                'email': 'test@thena.io',
+                'email': access_token, # A hack to return desired email
                 'isVerified': True
                 }
             }

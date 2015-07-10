@@ -45,7 +45,8 @@ class TestChex(unittest.TestCase):
         assert User.query.count() == 0
 
     def test_log_arc_with_valid_token(self):
-        db.session.add(User(email='test@thena.io'))
+        email = 'test@thena.io'
+        db.session.add(User(email=email))
         db.session.commit()
 
         assert Arc.query.count() == 0
@@ -54,18 +55,16 @@ class TestChex(unittest.TestCase):
             response = self.client.post(url_for('chex.log_arc'),
                 content_type='application/json',
                 data=json.dumps({
-                        'token': 'cat',
+                        'token': email,
                         'tail': 'www.someurl.com/1',
                         'head': 'www.someurl.com/2',
                         })
                 )
 
+        assert 'saved' in response.data
         assert Arc.query.count() == 1
 
     def test_log_arc_without_valid_token(self):
-        db.session.add(User(email='test@thena.io'))
-        db.session.commit()
-
         assert Arc.query.count() == 0
 
         with HTTMock(utils.google_auth):
@@ -78,4 +77,5 @@ class TestChex(unittest.TestCase):
                         })
                 )
 
+        assert 'invalid' in response.data
         assert Arc.query.count() == 0
