@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name http://www.thena.io;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/path/to/project/thena.sock;
+    }
+}
