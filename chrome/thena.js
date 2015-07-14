@@ -62,12 +62,24 @@ function getAuth(callback, interactive) {
 //  }
 // }
 
+
+// {"domain":"127.0.0.1",
+// "hostOnly":true,"httpOnly":true,"name":"session",
+// "path":"/",
+// "secure":false,"session":true,"storeId":"0",
+// "value":"eyJfZnJlc2giOnRydWUsIl9pZCI6eyIgYiI6IlpUWTRabVEyWm1OallXSmtNVGhoTURCbVpqTmlNek0xT0dZMk1UQTRNRGs9In0sInVzZXJfaWQiOiIxIn0.CIYLKA.IsKeNm6Q8PGzODC7uO-QwuYcpYc"}
+
 function sendAuth(authData) {
-    // Send authentication to server
-    var xhr2 = new XMLHttpRequest();
-    xhr2.open("POST", "http://127.0.0.1:5000/login");
-    xhr2.send(JSON.stringify(authData));
-    alert(JSON.stringify(authData));
+    // Get cookie for site
+    chrome.cookies.get({url: 'http://127.0.0.1:5000/', name: 'session'}, function(cookie){
+      alert(JSON.stringify(cookie))
+      // Send authentication to server
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open("POST", "http://127.0.0.1:5000/login");
+      xhr2.setRequestHeader('Cookie', 'session=' + cookie.value)
+      xhr2.send(JSON.stringify(authData));
+      alert(JSON.stringify(authData));
+    });
 };
 
 function authFlow() {
