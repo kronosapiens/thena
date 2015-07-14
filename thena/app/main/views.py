@@ -21,6 +21,15 @@ def index():
     return render_template('index.html')
 
 
+@main.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
+
+@main.route('/data', methods=['GET'])
+def data():
+    return render_template('data.html')
+
 # @main.after_app_request
 # def after_request(response):
 #     for query in get_debug_queries():

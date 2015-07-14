@@ -39,11 +39,12 @@ def login():
             return 'Logged in', str(user)
         else:
             return 'User not found!'
-    return 'Logging in like a champ'
+    return render_template('login.html')
 
 @chex.route('/logout', methods=['GET'])
 def logout():
     logout_user()
+    return render_template('logout.html')
 
 def get_email_from_auth(token):
     resp = requests.get(GOOGLE_AUTH_URL + token)
