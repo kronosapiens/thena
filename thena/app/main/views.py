@@ -17,7 +17,8 @@ url = 'http://127.0.0.1:5000'
 
 @main.route('/', methods=['GET'])
 def index():
-    return "This is Thena, nice to meet you."
+    # return 'hi Thena'
+    return render_template('index.html')
 
 
 # @main.after_app_request
