@@ -19,8 +19,8 @@ def log_arc():
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
-            user = User.get_or_create(email)
-            arc = Arc(user.id, data['tail'], data['head'])
+            user = User.get_or_create(email, auth_token=data['token'])
+            arc = Arc(user.id, data['tail_url'], data['head_url'])
             db.session.add(arc)
             db.session.commit()
             return 'Arc saved!'
@@ -35,7 +35,7 @@ def login():
         email = get_email_from_auth(data['token'])
         if email:
             user = User.get_or_create(email)
-            login_user(user)
+            login_user(user, remember=True)
             return 'Logged in', str(user)
         else:
             return 'User not found!'

@@ -25,10 +25,14 @@ class User(UserMixin, BaseModel):
         return '<User [{}] {}>'.format(self.id, self.email)
 
     @classmethod
-    def get_or_create(cls, email):
+    def get_or_create(cls, email, auth_token=''):
         user = cls.query.filter_by(email=email).first()
         if user is None:
-            user = cls(email=email)
+            user = cls(email=email, auth_token=auth_token)
+            db.session.add(user)
+            db.session.commit()
+        elif auth_token and user.auth_token != auth_token:
+            user.auth_token = auth_token
             db.session.add(user)
             db.session.commit()
         return user
