@@ -17,9 +17,11 @@ class User(UserMixin, BaseModel):
     auth_token = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
+    arcs = db.relationship('Arc', backref='user', lazy='dynamic')
 
-    def __init__(self, email):
+    def __init__(self, email, auth_token):
         self.email = email
+        self.auth_token = auth_token
 
     def __repr__(self):
         return '<User [{}] {}>'.format(self.id, self.email)

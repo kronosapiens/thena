@@ -34,7 +34,7 @@ def login():
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
-            user = User.get_or_create(email)
+            user = User.get_or_create(email, auth_token=data['token'])
             login_user(user, remember=True)
             return 'Logged in', str(user)
         else:
@@ -42,6 +42,7 @@ def login():
     return render_template('login.html')
 
 @chex.route('/logout', methods=['GET'])
+@login_required
 def logout():
     logout_user()
     return render_template('logout.html')

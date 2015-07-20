@@ -7,7 +7,47 @@
       <div class="page-header">
         <h1>Your Data</h1>
       </div>
-      <p class="lead">Here's what we've got so far.</p>
+      <p class="lead">Here's what we've got so far:</p>
+
+
+    <h3>Top Heads</h3>
+    <p>These are the pages you most often <em>arrive to</em>, excluding the main page.</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for head in top_heads %}
+        <tr>
+          <td>{{ head[0] }}</td>
+          <td>{{ head[1] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Top Tails</h3>
+    <p>These are the pages you most often <em>leave from</em>, excluding the main page.</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tail in top_tails %}
+        <tr>
+          <td>{{ tail[0] }}</td>
+          <td>{{ tail[1] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
       <p>We're working on deeper analysis as we speak -- the early data from you alpha users helps us build the algorithm!</p>
     </div>
 {% endblock %}

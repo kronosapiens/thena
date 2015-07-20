@@ -46,8 +46,7 @@ class TestChex(unittest.TestCase):
 
     def test_log_arc_with_valid_token(self):
         email = 'test@thena.io'
-        db.session.add(User(email=email))
-        db.session.commit()
+        User.get_or_create(email)
 
         assert Arc.query.count() == 0
 
@@ -56,8 +55,8 @@ class TestChex(unittest.TestCase):
                 content_type='application/json',
                 data=json.dumps({
                         'token': email,
-                        'tail': 'www.someurl.com/1',
-                        'head': 'www.someurl.com/2',
+                        'tail_url': 'www.someurl.com/1',
+                        'head_url': 'www.someurl.com/2',
                         })
                 )
 

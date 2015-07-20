@@ -4,6 +4,7 @@ from flask import render_template, redirect, url_for, abort, flash, request,\
     current_app, make_response
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.sqlalchemy import get_debug_queries
+from sqlalchemy import func, desc
 
 from . import main
 # from .forms import EditProfileForm, EditProfileAdminForm, PostForm,\
@@ -21,15 +22,29 @@ def index():
     return render_template('index.html')
 
 
-@main.route('/about', methods=['GET'])
-def about():
-    return render_template('about.html')
+@main.route('/thena', methods=['GET'])
+def about_thena():
+    return render_template('thena.html')
 
+@main.route('/daniel', methods=['GET'])
+def about_daniel():
+    return render_template('daniel.html')
 
 @main.route('/data', methods=['GET'])
+@login_required
 def data():
-    return render_template('data.html')
+    top_heads = top_pages(current_user, Arc.head_url)
+    top_tails = top_pages(current_user, Arc.tail_url)
+    return render_template('data.html',
+        top_heads=top_heads, top_tails=top_tails)
 
+def top_pages(user, page_type):
+    return db.session.query(page_type, func.count(page_type))\
+                     .filter_by(user_id=user.id)\
+                     .filter(page_type != "https://en.wikipedia.org/wiki/Main_Page")\
+                     .group_by(page_type)\
+                     .order_by(desc(func.count(page_type)))\
+                     .limit(5)
 # @main.after_app_request
 # def after_request(response):
 #     for query in get_debug_queries():
