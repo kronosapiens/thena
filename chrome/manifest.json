@@ -12,7 +12,10 @@
   "version": "0.1",
 
   "page_action": {
-    "default_icon": "favicon.png"
+    "default_icon": {
+      "19": "thena_logo_19.png",
+      "38": "thena_logo_38.png"
+    }
   },
 
   "background": {
