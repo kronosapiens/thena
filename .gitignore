@@ -64,6 +64,7 @@ data/
 
 # Chrome Extensions
 *.crx
+*.zip
 
 # Keys and Certificates
 infrastructure/keys/*

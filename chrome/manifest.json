@@ -9,7 +9,7 @@
   "name": "Thena",
   "description": "This extension will record the the wikipedia page you are currently viewing, as well as the page you came from.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6mQAn9jYVaP6qLzkwndz101g3MY98W8wTyr8+YwppMtWyKfZAd/ld3j/1G3og5rSyMzOH8TkfrSxrr8K+NjX1yK7EvRXx3RZ4LLBrpjZvsIOW7pUn1IUEoBJ4S7Lbwl0j7Y+uWOiCQGBw6xudG65LhpxlqV3zaW2DGDfn4yMhUGloDIM0z2bxwLnw7fOGib2lvp6wJn51TJV4an75af64qtilusqzeuzS5l5v2jG9W87saHUvz/5bNj1QPRPNTJJfXxj+mlBC0HO5CJpPIcCqGq6LJQplyNXZFy/9n79oA1QkaAjEUOwAmE6DEuA0FZL1KFSjZ/j5K8Y12sXwu1sQIDAQAB",
-  "version": "0.1",
+  "version": "0.2",
 
   "page_action": {
     "default_icon": {
@@ -32,8 +32,11 @@
     "identity.email",
     "https://*.wikipedia.org/wiki/*",
     "https://127.0.0.1:5000/*",
-    "http://127.0.0.1:5000/*"
-    // "https://www.thena.io/*"
+    "http://127.0.0.1:5000/*",
+    "https://www.thena.io/*",
+    "http://www.thena.io/*",
+    "https://thena.io/*",
+    "http://thena.io/*"
   ],
 
   "oauth2": {

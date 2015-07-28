@@ -30,7 +30,7 @@ def log_arc():
 
 @chex.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.data:
+    if request.method == 'POST':
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
@@ -39,7 +39,9 @@ def login():
             return 'Logged in', str(user)
         else:
             return 'User not found!'
-    return render_template('login.html')
+    else:
+        session['exists'] = True # Create session cookie if does not exist
+        return render_template('login.html')
 
 @chex.route('/logout', methods=['GET'])
 @login_required

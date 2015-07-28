@@ -6,6 +6,8 @@
 // https://developer.chrome.com/extensions/tabs
 // https://developer.chrome.com/extensions/identity
 
+var site_root = "http://127.0.0.1:5000/"
+var site_root = "http://thena.io/"
 
 // Show page action icon in omnibar.
 function showPageAction(tabId, changeInfo, tab) {
@@ -71,14 +73,14 @@ function getAuth(callback, interactive) {
 
 function sendAuth(authData) {
     // Get cookie for site
-    chrome.cookies.get({url: 'http://127.0.0.1:5000/', name: 'session'}, function(cookie){
+    alert(JSON.stringify(authData));
+    chrome.cookies.get({url: 'http://www.thena.io/', name: 'session'}, function(cookie){
       alert(JSON.stringify(cookie))
       // Send authentication to server
       var xhr2 = new XMLHttpRequest();
-      xhr2.open("POST", "http://127.0.0.1:5000/login");
+      xhr2.open("POST", "http://thena.io/login");
       xhr2.setRequestHeader('Cookie', 'session=' + cookie.value)
       xhr2.send(JSON.stringify(authData));
-      alert(JSON.stringify(authData));
     });
 };
 
@@ -87,7 +89,7 @@ function authFlow() {
 }
 
 var loginFilter = {
-  urls: ["https://*.wikipedia.org/wiki/Main_Page"]
+  urls: ["http://thena.io/login"]
 };
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
@@ -113,7 +115,7 @@ function sendArc(details) {
 
       // Send to server
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://127.0.0.1:5000/arc");
+      xhr.open("POST", "http://thena.io/arc");
       xhr.send(arcData);
       alert(arcData);
     });
