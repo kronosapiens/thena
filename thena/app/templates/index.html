@@ -8,7 +8,15 @@
         <h1>Know Yourself</h1>
       </div>
       <p class="lead">Meet Thena, your knowledge companion. Thena learns what excites you by how you use Wikipedia.</p>
-      <p>Written in <code>python</code> and powered by a little machine learning magic, Thena will help you undertsand what moves you. Get the <a href="">extension</a> to get started.</p>
+      <p>Written in <code>python</code> and powered by a little machine learning magic, Thena will help you undertsand what moves you.</p>
+
+      <p>To get started:</p>
+      <ol>
+        <li>Download the <a href="{{ url_for('static', filename='thena.crx') }}">extension</a>.</li>
+        <li>Open up your Chrome extension page: <code>chrome://extensions/</code></li>
+        <li>Drag and drop the <code>thena.crx</code> file onto the extension page to install.</li>
+        <li>Go to the <a href="{{ url_for('chex.login')}}">login page</a> to sign in!</li>
+      </ol>
     </div>
 {% endblock %}
 

@@ -7,8 +7,6 @@
       <div class="page-header">
         <h1>Welcome!</h1>
       </div>
-      <p class="lead">If you've already installed <a href="#">the extension</a>, an authentication pop-up should appear momentarily.</p>
-      <p>Thena lives in the extension, so you'll be logged in as long as you have it installed.</p>
+      <p class="lead">If you've already installed <a href="{{ url_for('static', filename='thena.crx') }}">the extension</a>, an authentication pop-up should appear momentarily.</p>
     </div>
 {% endblock %}
-

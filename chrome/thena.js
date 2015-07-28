@@ -21,6 +21,7 @@ chrome.tabs.onUpdated.addListener(showPageAction);
 // Authenticate User
 function getAuth(callback, interactive) {
   interactive = interactive || false;
+  // alert('getting auth')
   chrome.identity.getAuthToken({interactive: interactive}, function(token) {
       auth_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
       var xhr = new XMLHttpRequest();
@@ -73,9 +74,9 @@ function getAuth(callback, interactive) {
 
 function sendAuth(authData) {
     // Get cookie for site
-    alert(JSON.stringify(authData));
+    // alert(JSON.stringify(authData));
     chrome.cookies.get({url: 'http://thena.io/', name: 'session'}, function(cookie){
-      alert(JSON.stringify(cookie))
+      // alert(JSON.stringify(cookie))
       // Send authentication to server
       var xhr2 = new XMLHttpRequest();
       xhr2.open("POST", "http://thena.io/login_silent");
@@ -117,7 +118,7 @@ function sendArc(details) {
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "http://thena.io/arc");
       xhr.send(arcData);
-      alert(arcData);
+      // alert(arcData);
     });
   });
 };
