@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name http://thena.io;
+    server_name thena.io;
 
     location / {
         include uwsgi_params;
