@@ -2,5 +2,20 @@
 Setting up AWS instance:
 ssh -i thena-ssh.pem ubuntu@<ec2 dns>
 sudo apt-get update
-sudo apt-get install python-pip python-dev python-numpy libpq-dev libncurses5-dev nginx
+sudo apt-get install build-essential python-pip python-dev python-numpy libpq-dev libncurses5-dev nginx supervisor
 pip install -r requirements.txt
+
+
+uwsgi --socket 0.0.0.0:8000 --protocol=http -w wsgi:app --uid ubuntu --gid www-data --pidfile /var/tmp/uwsgi-app.pid --logto /var/log/uwsgi/uwsgi.log
+
+uwsgi -s /tmp/thena.sock -w wsgi --callable app --uid ubuntu --gid www-data --pidfile /var/tmp/uwsgi-app.pid --logto /var/log/uwsgi/uwsgi.log
+
+sudo cp nginx-config /etc/nginx/sites-enabled
+
+mkdir /var/log/uwsgi/
+touch /var/log/uwsgi/uwsgi.log
+sudo nginx -t
+sudo service nginx restart
+
+tail -f /var/log/nginx/access.log
+tail -f /var/log/uwsgi/uwsgi.log
