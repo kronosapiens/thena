@@ -1,0 +1,5 @@
+#######################
+Setting up AWS instance:
+ssh -i thena-ssh.pem ubuntu@<ec2 dns>
+sudo apt-get install python-pip python-dev python-numpy nginx
+pip install -r requirements.txt
