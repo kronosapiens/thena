@@ -28,9 +28,14 @@ def log_arc():
             return 'Authentication token invalid!'
     return 'POST your arcs here!'
 
-@chex.route('/login', methods=['GET', 'POST'])
+@chex.route('/login', methods=['GET'])
 def login():
-    if request.method == 'POST':
+    session['exists'] = True # Create session cookie if does not exist
+    return render_template('login.html')
+
+@chex.route('/login_silent', methods=['POST'])
+def login_silent():
+    if request.data:
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
@@ -40,7 +45,6 @@ def login():
         else:
             return 'User not found!'
     else:
-        session['exists'] = True # Create session cookie if does not exist
         return render_template('login.html')
 
 @chex.route('/logout', methods=['GET'])

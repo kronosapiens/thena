@@ -74,11 +74,11 @@ function getAuth(callback, interactive) {
 function sendAuth(authData) {
     // Get cookie for site
     alert(JSON.stringify(authData));
-    chrome.cookies.get({url: 'http://www.thena.io/', name: 'session'}, function(cookie){
+    chrome.cookies.get({url: 'http://thena.io/', name: 'session'}, function(cookie){
       alert(JSON.stringify(cookie))
       // Send authentication to server
       var xhr2 = new XMLHttpRequest();
-      xhr2.open("POST", "http://thena.io/login");
+      xhr2.open("POST", "http://thena.io/login_silent");
       xhr2.setRequestHeader('Cookie', 'session=' + cookie.value)
       xhr2.send(JSON.stringify(authData));
     });
