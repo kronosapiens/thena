@@ -19,6 +19,12 @@
     }
   },
 
+  "icons": {
+      "16": "thena_logo_16.png",
+      "48": "thena_logo_48.png",
+      "128": "thena_logo_128.png"
+  },
+
   "background": {
      "scripts": ["thena.js"],
      "persistent": true
