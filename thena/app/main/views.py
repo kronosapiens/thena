@@ -21,13 +21,16 @@ def index():
     # return 'hi Thena'
     return render_template('index.html')
 
-
 @main.route('/thena', methods=['GET'])
 def about_thena():
     return render_template('thena.html')
 
 @main.route('/daniel', methods=['GET'])
 def about_daniel():
+    return render_template('daniel.html')
+
+@main.route('/privacy', methods=['GET'])
+def about_privacy():
     return render_template('daniel.html')
 
 @main.route('/data', methods=['GET'])
@@ -45,6 +48,14 @@ def top_pages(user, page_type):
                      .group_by(page_type)\
                      .order_by(desc(func.count(page_type)))\
                      .limit(5)
+
+@main.route('/logout', methods=['GET'])
+# @login_required
+def logout():
+    logout_user()
+    return render_template('logout.html')
+
+
 # @main.after_app_request
 # def after_request(response):
 #     for query in get_debug_queries():

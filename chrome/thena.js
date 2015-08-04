@@ -6,7 +6,7 @@
 // https://developer.chrome.com/extensions/tabs
 // https://developer.chrome.com/extensions/identity
 
-var site_root = "http://127.0.0.1:5000/"
+// var site_root = "http://127.0.0.1:5000/"
 var site_root = "http://thena.io/"
 
 // Show page action icon in omnibar.
@@ -23,7 +23,7 @@ function getAuth(callback, interactive) {
   interactive = interactive || false;
   // alert('getting auth')
   chrome.identity.getAuthToken({interactive: interactive}, function(token) {
-      auth_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
+      var auth_url = "https://www.googleapis.com/userinfo/email?alt=json&access_token="
       var xhr = new XMLHttpRequest();
       xhr.open("GET", auth_url + token);
 
@@ -79,7 +79,7 @@ function sendAuth(authData) {
       // alert(JSON.stringify(cookie))
       // Send authentication to server
       var xhr2 = new XMLHttpRequest();
-      xhr2.open("POST", "http://thena.io/login_silent");
+      xhr2.open("POST", "http://thena.io/login");
       xhr2.setRequestHeader('Cookie', 'session=' + cookie.value)
       xhr2.send(JSON.stringify(authData));
     });
@@ -90,7 +90,7 @@ function authFlow() {
 }
 
 var loginFilter = {
-  urls: ["http://thena.io/login"]
+  urls: ["http://thena.io/login_button"]
 };
 
 chrome.webRequest.onBeforeSendHeaders.addListener(

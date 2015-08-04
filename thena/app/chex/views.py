@@ -28,14 +28,9 @@ def log_arc():
             return 'Authentication token invalid!'
     return 'POST your arcs here!'
 
-@chex.route('/login', methods=['GET'])
+@chex.route('/login', methods=['GET', 'POST'])
 def login():
-    session['exists'] = True # Create session cookie if does not exist
-    return render_template('login.html')
-
-@chex.route('/login_silent', methods=['POST'])
-def login_silent():
-    if request.data:
+    if request.method == 'POST': # Made by extension
         data = request.get_json(force=True) # TODO: Update extension to set correct Mimetype
         email = get_email_from_auth(data['token'])
         if email:
@@ -45,13 +40,13 @@ def login_silent():
         else:
             return 'User not found!'
     else:
+        session['exists'] = True # Create session cookie if does not exist
         return render_template('login.html')
 
-@chex.route('/logout', methods=['GET'])
-@login_required
-def logout():
-    logout_user()
-    return render_template('logout.html')
+@chex.route('/login_button', methods=['GET'])
+def login_button():
+    # login_user(User.query.first())
+    return redirect(url_for('chex.login'))
 
 def get_email_from_auth(token):
     resp = requests.get(GOOGLE_AUTH_URL + token)

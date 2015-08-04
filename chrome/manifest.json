@@ -4,7 +4,7 @@
   "name": "Thena",
   "description": "This extension will record the the wikipedia page you are currently viewing, as well as the page you came from.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0YiDjci1xcYySz+U78gXAaIcyKE0eUSqOi8WTb7jws4+tqB7AkKlb/p22W424m8rvw9bsPsFujbm7pwqVg0ArM6wEjijDGkQdFEl3Ft8aRSS5O1YMah6EkcvYw1GXGO86LxfZIZc5OfiAz2xrEIUqaVeD6xcEgp0sfJC6E2j11hdM+7OvZNaQuZg+kVkYVQyUHKTU+JYUe8W7nKSeLfMnuiOlq5wPcaNpf1Gs0wSs2zzogR1pOGjFFpFY69AdNmtcDFLjCIB8mY7kzyv4sotHc+gqzTRmMbP7LBqscKpWgrQup4s6/ye6abmvm7nYyAlyNFYCUQ19aN/0yCJ0uW8PwIDAQAB",
-  "version": "0.2",
+  "version": "0.3",
 
 
   "page_action": {
@@ -33,8 +33,6 @@
     "identity",
     "identity.email",
     "https://*.wikipedia.org/wiki/*",
-    "https://127.0.0.1:5000/*",
-    "http://127.0.0.1:5000/*",
     "https://www.thena.io/*",
     "http://www.thena.io/*",
     "https://thena.io/*",

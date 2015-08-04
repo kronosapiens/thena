@@ -1,0 +1,6 @@
+[program:uwsgi_script]
+command=uwsgi --ini /srv/www/thena/thena/thena.ini
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/uwsgi.err.log
+stdout_logfile=/var/log/uwsgi.out.log

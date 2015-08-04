@@ -18,10 +18,11 @@
               <ul class="dropdown-menu">
                 <li><a href="{{ url_for('main.about_thena') }}">Thena</a></li>
                 <li><a href="{{ url_for('main.about_daniel') }}">Daniel</a></li>
+                <li><a href="{{ url_for('main.about_privacy') }}">Privacy</a></li>
               </ul>
             {% if current_user.is_authenticated() %}
               <li><a href="{{ url_for('main.data') }}">Your Data</a></li>
-              <li><a href="{{ url_for('chex.logout') }}">Logout</a></li>
+              <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
             {% else %}
               <li><a href="{{ url_for('chex.login') }}">Login</a></li>
             {% endif %}
