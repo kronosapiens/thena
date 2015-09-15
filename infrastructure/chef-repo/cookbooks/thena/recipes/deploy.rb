@@ -39,13 +39,15 @@ end
 file "#{node['thena']['app_dir']}/wsgi.py" do
     content "def app(env, start_response):
     start_response('200 OK', [('Content-Type','text/html')])
-    return [b'Hello World']"
+    return [b'Hello Thena\\n']"
+    owner node['thena']['uwsgi_user']
+    group node['thena']['uwsgi_group']
 end
 ## / END TESTING
 
 service 'thena-uwsgi' do
   supports :status => true
-  action [:enable, :start]
+  action [:enable, :restart]
 end
 
 service 'nginx' do

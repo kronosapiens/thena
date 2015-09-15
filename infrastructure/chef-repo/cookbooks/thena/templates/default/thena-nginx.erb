@@ -1,5 +1,5 @@
 server {
-    listen 80;
+    listen <%= node['thena']['server_port'] %>;
     server_name <%= node['thena']['server_name'] %>;
 
     location / {

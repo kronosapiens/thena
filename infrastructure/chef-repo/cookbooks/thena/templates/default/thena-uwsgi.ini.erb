@@ -1,6 +1,6 @@
 [uwsgi]
 chdir = <%= node['thena']['app_dir'] %>
-module = wsgi:app
+module = <%= node['thena']['uwsgi_module'] %>
 
 master = true
 processes = 5
@@ -9,8 +9,8 @@ socket = <%= node['thena']['uwsgi_socket'] %>
 chmod-socket = 664
 vacuum = true
 
-uid = vagrant
-gid = www-data
+uid = <%= node['thena']['uwsgi_user'] %>
+gid = <%= node['thena']['uwsgi_group'] %>
 
 pidfile = <%= node['thena']['uwsgi_pidfile'] %>
 logto = <%= node['thena']['uwsgi_logfile'] %>

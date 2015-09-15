@@ -57,32 +57,35 @@ template "#{node['thena']['config_dir']}thena-uwsgi.ini" do
    source 'thena-uwsgi.ini.erb'
 end
 
-file node['thena']['uwsgi_logfile'] do
 
+# set ownership and permissions
+file node['thena']['nginx_logfile'] do
     mode '0644'
+    owner node['thena']['nginx_user']
+    group node['thena']['nginx_group']
+end
+
+file node['thena']['nginx_errorfile'] do
+    mode '0644'
+    owner node['thena']['nginx_user']
+    group node['thena']['nginx_group']
+end
+
+file node['thena']['uwsgi_logfile'] do
+    mode '0644'
+    owner node['thena']['uwsgi_user']
+    group node['thena']['uwsgi_group']
 end
 
 file node['thena']['uwsgi_pidfile'] do
     mode '0644'
+    owner node['thena']['uwsgi_user']
+    group node['thena']['uwsgi_group']
 end
-
-# can remove once we move to opsworks
-# cookbook_file "copy deploy key" do
-#     source node['thena']['ssh_key']
-#     path "#{node['thena']['config_dir']}#{node['thena']['ssh_key']}"
-#     mode '0644'
-# end
-
-# file node['thena']['ssh_wrapper'] do
-#   path node['thena']['config_dir'] + name
-#   # mode "0755"
-#   mode "0777"
-#   content "#!/bin/sh\nexec /usr/bin/ssh -i #{node['thena']['config_dir']}#{node['thena']['ssh_key']} \'$@\'"
-#   # content "#!/bin/sh\nexec /usr/bin/ssh -i #{node['thena']['config_dir']}#{node[:deploy]['appshortname'][:scm][:ssh_key]} \'$@\'"
-# end
 
 
 # start nginx
+# note: start as sudo, will spawn child processes w/ www-data owner
 service 'nginx' do
   supports :status => true
   action [:enable, :start]
