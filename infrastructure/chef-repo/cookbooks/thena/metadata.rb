@@ -1,0 +1,10 @@
+name 'thena'
+maintainer 'Daniel Kronovet'
+maintainer_email 'daniel@thena.io'
+license 'all_rights'
+description 'Installs/Configures thena'
+long_description 'Installs/Configures thena'
+version '0.1.0'
+
+depends 'apt', '~> 2.7.0'
+depends 'python', '~> 1.4.6'

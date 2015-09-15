@@ -3,7 +3,7 @@ execute "pull repo" do
 end
 
 execute "restart uwsgi" do
-    'uwsgi --ini /srv/www/thena/thena/thena.ini'
+    'uwsgi --ini /srv/www/thena/thena/uwsgi.ini'
 end
 
 execute "start nginx" do

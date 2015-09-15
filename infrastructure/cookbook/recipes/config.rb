@@ -1,3 +1,14 @@
+package 'build-essential'
+
+package 'python-pip'
+package 'python-dev'
+package 'python-numpy'
+
+package 'libncurses5-dev'
+package 'libpq-dev'
+package 'postgresql-client'
+
+
 package 'nginx'
 package 'supervisor'
 

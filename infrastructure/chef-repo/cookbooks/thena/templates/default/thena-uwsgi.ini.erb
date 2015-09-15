@@ -1,0 +1,18 @@
+[uwsgi]
+chdir = <%= node['thena']['app_dir'] %>
+module = wsgi:app
+
+master = true
+processes = 5
+
+socket = <%= node['thena']['uwsgi_socket'] %>
+chmod-socket = 664
+vacuum = true
+
+uid = vagrant
+gid = www-data
+
+pidfile = <%= node['thena']['uwsgi_pidfile'] %>
+logto = <%= node['thena']['uwsgi_logfile'] %>
+
+die-on-term = true

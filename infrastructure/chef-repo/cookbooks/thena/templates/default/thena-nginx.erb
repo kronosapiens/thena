@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name <%= node['thena']['server_name'] %>;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix://<%= node['thena']['uwsgi_socket'] %>;
+    }
+}
