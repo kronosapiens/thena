@@ -24,6 +24,12 @@ tail -f /var/log/uwsgi/uwsgi.log
 uwsgi --ini /srv/www/thena/thena/uwsgi.ini
 sudo service nginx restart
 
+## With Upstart
+vagrant@default-ubuntu-1404:~$ sudo stop thena-uwsgi
+thena-uwsgi stop/waiting
+vagrant@default-ubuntu-1404:~$ sudo start thena-uwsgi
+thena-uwsgi start/running, process 12686
+
 ## TO PACKAGE EXTENSION
 zip -r chex.zip chrome
 
@@ -32,3 +38,4 @@ zip -r chex.zip chrome
 
 ## TO DOWNLOAD DEPLOY COOKBOOK FROM AWS
 cookbook "deploy", git: "https://github.com/aws/opsworks-cookbooks.git", branch: "release-chef-11.10", rel: "deploy"
+
