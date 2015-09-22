@@ -1,1 +1,1 @@
-cookbook 'thena-infra', path: 'infrastructure/chef-repo/thena-infra/'
+cookbook 'thena-infra', path: 'infrastructure/chef-repo/cookbooks/thena-infra/'
