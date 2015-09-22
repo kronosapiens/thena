@@ -1,4 +1,4 @@
-name 'thena'
+name 'thena-infra'
 maintainer 'Daniel Kronovet'
 maintainer_email 'daniel@thena.io'
 license 'all_rights'

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: thena
+# Cookbook Name:: thena-infra
 # Recipe:: configure
 #
 # Copyright (c) 2015 Daniel Kronovet, All Rights Reserved.
@@ -27,15 +27,15 @@ package 'postgresql-client'
 
 
 # create app directories
-directory node['thena']['project_dir'] do
+directory node['thena-infra']['project_dir'] do
   recursive true
 end
 
-directory node['thena']['config_dir'] do
+directory node['thena-infra']['config_dir'] do
   recursive true
 end
 
-directory node['thena']['uwsgi_log_dir'] do
+directory node['thena-infra']['uwsgi_log_dir'] do
   recursive true
 end
 
@@ -53,34 +53,34 @@ template "/etc/init/thena-uwsgi.conf" do
    source 'thena-uwsgi.conf.erb'
 end
 
-template "#{node['thena']['config_dir']}thena-uwsgi.ini" do
+template "#{node['thena-infra']['config_dir']}thena-uwsgi.ini" do
    source 'thena-uwsgi.ini.erb'
 end
 
 
 # set ownership and permissions
-file node['thena']['nginx_logfile'] do
+file node['thena-infra']['nginx_logfile'] do
     mode '0644'
-    owner node['thena']['nginx_user']
-    group node['thena']['nginx_group']
+    owner node['thena-infra']['nginx_user']
+    group node['thena-infra']['nginx_group']
 end
 
-file node['thena']['nginx_errorfile'] do
+file node['thena-infra']['nginx_errorfile'] do
     mode '0644'
-    owner node['thena']['nginx_user']
-    group node['thena']['nginx_group']
+    owner node['thena-infra']['nginx_user']
+    group node['thena-infra']['nginx_group']
 end
 
-file node['thena']['uwsgi_logfile'] do
+file node['thena-infra']['uwsgi_logfile'] do
     mode '0644'
-    owner node['thena']['uwsgi_user']
-    group node['thena']['uwsgi_group']
+    owner node['thena-infra']['uwsgi_user']
+    group node['thena-infra']['uwsgi_group']
 end
 
-file node['thena']['uwsgi_pidfile'] do
+file node['thena-infra']['uwsgi_pidfile'] do
     mode '0644'
-    owner node['thena']['uwsgi_user']
-    group node['thena']['uwsgi_group']
+    owner node['thena-infra']['uwsgi_user']
+    group node['thena-infra']['uwsgi_group']
 end
 
 

@@ -11,5 +11,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[thena::default]
+      - recipe[thena-infra::default]
     attributes:

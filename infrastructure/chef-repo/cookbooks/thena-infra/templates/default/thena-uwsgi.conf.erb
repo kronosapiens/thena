@@ -4,5 +4,5 @@ author "Daniel Kronovet"
 start on runlevel [2345]
 stop on runlevel [!2345]
 
-chdir <%= node['thena']['config_dir'] %>
+chdir <%= node['thena-infra']['config_dir'] %>
 exec uwsgi --ini thena-uwsgi.ini

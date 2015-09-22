@@ -1,12 +1,12 @@
 #
-# Cookbook Name:: thena
+# Cookbook Name:: thena-infra
 # Spec:: default
 #
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'thena::deploy' do
+describe 'thena-infra::default' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
