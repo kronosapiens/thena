@@ -1,6 +1,8 @@
 #######################
 Setting up AWS instance:
 ssh -i keys/thena-ssh.pem ubuntu@ec2-52-6-29-147.compute-1.amazonaws.com
+ssh -i keys/thena-ssh.pem ubuntu@ec2-52-6-91-209.compute-1.amazonaws.com # Current server
+
 sudo apt-get update
 sudo apt-get install build-essential python-pip python-dev python-numpy libpq-dev libncurses5-dev nginx supervisor postgresql-client
 pip install -r requirements.txt
@@ -24,11 +26,17 @@ tail -f /var/log/uwsgi/uwsgi.log
 uwsgi --ini /srv/www/thena/thena/uwsgi.ini
 sudo service nginx restart
 
-## With Upstart
+## UPSTART
 vagrant@default-ubuntu-1404:~$ sudo stop thena-uwsgi
 thena-uwsgi stop/waiting
 vagrant@default-ubuntu-1404:~$ sudo start thena-uwsgi
 thena-uwsgi start/running, process 12686
+
+To list all processes managed by upstart:
+$ initctl list
+
+To check status:
+$ status thena-uwsgi
 
 ## TO PACKAGE EXTENSION
 zip -r chex.zip chrome
