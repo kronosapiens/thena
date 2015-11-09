@@ -17,7 +17,6 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{ url_for('main.about_thena') }}">Thena</a></li>
-                <li><a href="{{ url_for('main.about_daniel') }}">Daniel</a></li>
                 <li><a href="{{ url_for('main.about_privacy') }}">Privacy</a></li>
               </ul>
             {% if current_user.is_authenticated() %}
