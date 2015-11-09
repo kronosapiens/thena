@@ -19,7 +19,9 @@ url = 'http://127.0.0.1:5000'
 @main.route('/', methods=['GET'])
 def index():
     # return 'hi Thena'
-    return render_template('index.html')
+    num_arcs = 5
+    num_arcs = Arc.query.count()
+    return render_template('index.html', num_arcs=num_arcs)
 
 @main.route('/thena', methods=['GET'])
 def about_thena():
