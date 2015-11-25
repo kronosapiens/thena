@@ -18,6 +18,7 @@ Jinja2==2.7.3
 Mako==1.0.1
 MarkupSafe==0.23
 mock==1.0.1
+newrelic==2.58.1.44
 numpy==1.9.2
 oauth2==1.5.211
 pandas==0.16.1
