@@ -10,10 +10,13 @@
       <p class="lead">Thena lives in <a href="https://chrome.google.com/webstore/detail/thena/edkbcffelaeaoedocffeocbhoncfjcgl?hl=en-US&gl=US", target="_blank">the extension</a>. Install it to get the ball rolling.</p>
       <p>Once you've installed it, click the button below to log in. There's some coordinating going on between Chrome, the extension, and the site, so you may have to click twice :/</p>
       <br>
+      <a type="button" role="button" class="btn btn-primary btn-lg" href="https://chrome.google.com/webstore/detail/thena/edkbcffelaeaoedocffeocbhoncfjcgl?hl=en-US&gl=US", target="_blank">1. Install Extension</a>
+      <br>
+      <br>
       {% if current_user.is_authenticated() %}
         <a type="button" role="button" class="btn btn-success btn-lg" disabled="disabled">Success!</a>
       {% else %}
-        <a type="button" role="button" class="btn btn-primary btn-lg" href="{{ url_for('chex.login_button')}}">Login</a>
+        <a type="button" role="button" class="btn btn-primary btn-lg" href="{{ url_for('chex.login_button')}}">2. Login</a>
       {% endif %}
     </div>
 {% endblock %}
